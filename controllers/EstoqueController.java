@@ -25,12 +25,12 @@ public class EstoqueController {
 		this.estoque.cadastraEstoqueProduto(produto, quantidade);
 	}
 	
-	public void removerProdutoEstoque(String nomeProduto, Integer quantidade) {
-		this.estoque.removeProduto(nomeProduto, quantidade);
+	public void removerProdutoEstoque(int idProduto, Integer quantidade) {
+		this.estoque.removeProduto(idProduto, quantidade);
 	}
 	
-	public Produto bucarProdutoNoEstoque(String nome) {
-		Produto produtoNoEstoqueProduto = this.estoque.buscarProduto(nome);
+	public Produto bucarProdutoNoEstoque(int idProduto) {
+		Produto produtoNoEstoqueProduto = this.estoque.buscarProduto(idProduto);
 		return produtoNoEstoqueProduto;
 	}
 	

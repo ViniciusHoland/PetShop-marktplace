@@ -11,7 +11,11 @@ public class Servico {
 		this.nomeServico = nomeServico;
 		this.valorServico = valorServico;
 	}
-	
+
+	public Servico() {
+
+	}
+
 	public String getNomeServico() {
 		return nomeServico;
 	}

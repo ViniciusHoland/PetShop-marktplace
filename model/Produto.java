@@ -1,11 +1,15 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Produto {
 	
 	private Integer idProduto;
 	private String nomeProduto;
 	private double precoProduto;
 	private int quantidadeEstoque;
+	private List<Produto> produtos = new ArrayList<>();
 	private static int nextId=1;
 	
 	
@@ -21,7 +25,10 @@ public class Produto {
 	}
 	
 	public Produto cadastrarProduto(Produto produto) {
+
+		this.produtos.add(produto);
 		return produto;
+
 	}
 	
 	
@@ -56,6 +63,12 @@ public class Produto {
 	public void setPrecoProduto(double precoProduto) {
 		this.precoProduto = precoProduto;
 	}
-	
-	
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
 }

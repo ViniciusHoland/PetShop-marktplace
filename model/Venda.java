@@ -1,5 +1,7 @@
 package model;
 
+import controllers.EstoqueController;
+
 import java.util.ArrayList;
 
 
@@ -26,7 +28,8 @@ public class Venda {
 
 	}
 	
-	public void adicionarProdutoVenda(Produto produto,int quantidade) {
+	public void adicionarProdutoVenda(int idProduto,int quantidade) {
+		Produto produto = EstoqueController.getInstancia().bucarProdutoNoEstoque(idProduto);
 		ItemVenda novoItemVenda = new ItemVenda(produto, quantidade);
 		itensVenda.add(novoItemVenda);
 		this.totalProduto += novoItemVenda.getTotal(); // vai somando o total de produtos

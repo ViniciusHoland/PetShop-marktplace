@@ -32,28 +32,28 @@ public class Estoque {
 		}
 	}
 	
-	public Produto buscarProduto(String nome) {
+	public Produto buscarProduto(int idProduto) {
 		boolean encontrado = false;
 		
 		for(ItemEstoque produtosNoEstoque : itensProdutosEstoque) {
 			Produto produto = produtosNoEstoque.getProduto();
-			if(produto.getNomeProduto().equalsIgnoreCase(nome)) {
+			if(produto.getIdProduto().equals(idProduto)) {
 				encontrado = true;
 				return produto;
 			}
 		}
 		if(!encontrado) {
-			System.out.println("Produto não encontrado " + nome);
+			System.out.println("Produto não encontrado ");
 		}
 		return null;
 	}
 	
 	
-	public void removeProduto(String nomeProduto, Integer quantidade) {
+	public void removeProduto(int idProduto, Integer quantidade) {
 		
 		for(ItemEstoque produtosNoEstoque : itensProdutosEstoque) {
 			Produto produto = produtosNoEstoque.getProduto();
-			if(produto.getNomeProduto().equalsIgnoreCase(nomeProduto)) {
+			if(produto.getIdProduto().equals(idProduto)) {
 				produtosNoEstoque.setQuantidade(produtosNoEstoque.getQuantidade() - quantidade);
 			}
 		}

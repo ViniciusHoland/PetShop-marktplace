@@ -9,36 +9,46 @@ import model.Venda;
 
 public class VendaController {
 
-	private Venda venda;
+	private  static VendaController instancia;
 	
-	public VendaController() {
+	private VendaController() {
 		
 	}
 
-	public VendaController(Funcionario funcionario, Cliente cliente) {
-		this.venda = new Venda(funcionario, cliente);
+	public static VendaController getInstancia(){
+		if(instancia == null){
+			instancia = new VendaController();
+		}
+		return instancia;
 	}
-	
-	public void realizarVenda(Produto produto, int quantidade) {
-		this.venda.adicionarProdutoVenda(produto, quantidade);
+
+	public Venda realizarVenda(int idProduto, int quantidade) {
+
+		Venda novaVenda = new Venda();
+		novaVenda.adicionarProdutoVenda(idProduto, quantidade);
+
+		EstoqueController.getInstancia().removerProdutoEstoque(idProduto,quantidade);
+		novaVenda.detalharVenda();
+		return novaVenda;
 	}
 	
 	public void realizarVenda(Servico servico, int quantidade) {
-		this.venda.adicionarServicoVenda(servico, quantidade);
+		Venda novaVenda = new Venda();
+		novaVenda.adicionarServicoVenda(servico, quantidade);
+	}
+
+
+	public void detalharVenda(Venda venda) {
+		venda.detalharVenda();
 	}
 	
-	
-	public void detalharVenda() {
-		this.venda.detalharVenda();
-	}
-	
-	public void fecharVenda() {
+	public void fecharVenda(Venda venda) {
 		
-		for(ItemVenda  itensDaVenda : this.venda.getItensVenda() ) {
-			EstoqueController.getInstancia().removerProdutoEstoque(itensDaVenda.getProduto().getNomeProduto(), itensDaVenda.getQuantidade());
+		for(ItemVenda  itensDaVenda : venda.getItensVenda() ) {
+			EstoqueController.getInstancia().removerProdutoEstoque(itensDaVenda.getProduto().getIdProduto(), itensDaVenda.getQuantidade());
 		}
 	
-		this.venda.fecharVenda();
+		venda.fecharVenda();
 	}
 	
 }
