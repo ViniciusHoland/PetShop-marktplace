@@ -13,22 +13,28 @@ public class Venda {
 	private ArrayList<ItemServico> itensservicos;
 	private double totalProduto;
 	private double totalServico;
+	private boolean fechada;
 	
 	public Venda(Funcionario funcionario, Cliente cliente) {
 		this.funcionario = funcionario;
 		this.cliente = cliente;
 		this.itensVenda = new ArrayList<ItemVenda>();
 		this.itensservicos= new ArrayList<ItemServico>();
+		this.fechada = false;
 	
 	}
 	
 	public Venda() {
 		this.itensVenda = new ArrayList<ItemVenda>();
 		this.itensservicos= new ArrayList<ItemServico>();
-
+		this.fechada = false;
 	}
 	
 	public void adicionarProdutoVenda(int idProduto,int quantidade) {
+		if(this.fechada){
+			System.out.println("venda já foi fechada, não é possivel adicionar mais itens");
+			return;
+		}
 		Produto produto = EstoqueController.getInstancia().bucarProdutoNoEstoque(idProduto);
 		ItemVenda novoItemVenda = new ItemVenda(produto, quantidade);
 		itensVenda.add(novoItemVenda);
@@ -55,10 +61,21 @@ public class Venda {
 	}
 	
 	public void fecharVenda() {
-		System.out.println("Finalizando Venda...");
+
+		if(this.fechada){
+			System.out.println("A venda já foi fechada");
+		}
+		fechada = true;
+
 		//System.out.println("O cliente " + this.cliente.getNomeCliente() + " Realizou a compra");
 		detalharVenda();
+		System.out.println("Finalizando Venda...");
 		//System.out.println("O funcionario " + this.funcionario.getNomeFuncionario() + " finalizou a venda");
+	}
+
+
+	public boolean isFechada() {
+		return fechada;
 	}
 
 	public Funcionario getFuncionario() {

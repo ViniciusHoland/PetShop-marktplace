@@ -10,6 +10,7 @@ import model.Venda;
 public class VendaController {
 
 	private  static VendaController instancia;
+	private Venda vendaAtual;
 	
 	private VendaController() {
 		
@@ -22,19 +23,23 @@ public class VendaController {
 		return instancia;
 	}
 
-	public Venda realizarVenda(int idProduto, int quantidade) {
+	public void iniciarVenda(){
+		if(vendaAtual != null && !vendaAtual.isFechada()){
+			System.out.println("já existe uma venda em andamento. Finalize a venda atual");
+		}
+		this.vendaAtual = new Venda();
+		System.out.println("Nova venda iniciada");
+	}
 
-		Venda novaVenda = new Venda();
-		novaVenda.adicionarProdutoVenda(idProduto, quantidade);
+	public Venda adicionarItensVenda(int idProduto, int quantidade) {
 
-		EstoqueController.getInstancia().removerProdutoEstoque(idProduto,quantidade);
-		novaVenda.detalharVenda();
-		return novaVenda;
+		this.vendaAtual.adicionarProdutoVenda(idProduto, quantidade);
+
+		return vendaAtual;
 	}
 	
-	public void realizarVenda(Servico servico, int quantidade) {
-		Venda novaVenda = new Venda();
-		novaVenda.adicionarServicoVenda(servico, quantidade);
+	public void adicionarItensVenda(Servico servico, int quantidade) {
+
 	}
 
 
@@ -42,12 +47,12 @@ public class VendaController {
 		venda.detalharVenda();
 	}
 	
-	public void fecharVenda(Venda venda) {
-		
+	public void fecharVenda() {
+		var venda = this.vendaAtual;
 		for(ItemVenda  itensDaVenda : venda.getItensVenda() ) {
 			EstoqueController.getInstancia().removerProdutoEstoque(itensDaVenda.getProduto().getIdProduto(), itensDaVenda.getQuantidade());
 		}
-	
+		this.vendaAtual = null;
 		venda.fecharVenda();
 	}
 	
