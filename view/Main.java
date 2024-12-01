@@ -3,13 +3,15 @@ package view;
 import controllers.EstoqueController;
 import controllers.ProdutoController;
 import controllers.VendaController;
+import modulos.ModuloProduto;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        ProdutoController.getInstacia().cadastrarProduto("racao",5.5,20);
-        ProdutoController.getInstacia().cadastrarProduto("pente",10.0,15);
+        // esse modulo automaticamente inicializa varios produtos para serem utilizados
+        ModuloProduto.getInstancia();
+
         EstoqueController.getInstancia().mostrarProdutosQuantidades();
         System.out.println();
 
