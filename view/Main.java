@@ -2,8 +2,10 @@ package view;
 
 import controllers.EstoqueController;
 import controllers.ProdutoController;
+import controllers.ServicoController;
 import controllers.VendaController;
 import modulos.ModuloProduto;
+import modulos.ModuloServico;
 
 public class Main {
 
@@ -11,6 +13,7 @@ public class Main {
 
         // esse modulo automaticamente inicializa varios produtos para serem utilizados
         ModuloProduto.getInstancia();
+        ModuloServico.getInstancia();
 
         EstoqueController.getInstancia().mostrarProdutosQuantidades();
         System.out.println();
@@ -21,14 +24,9 @@ public class Main {
         VendaController.getInstancia().fecharVenda();
         System.out.println();
 
-        VendaController.getInstancia().iniciarVenda();
-        VendaController.getInstancia().adicionarItensVenda(2,4);
-        VendaController.getInstancia().adicionarItensVenda(1,10);
-        VendaController.getInstancia().fecharVenda();
+        //EstoqueController.getInstancia().mostrarProdutosQuantidades();
 
-
-        System.out.println();
-        EstoqueController.getInstancia().mostrarProdutosQuantidades();
+        ServicoController.getInstancia().listarServicos();
 
 
     }
